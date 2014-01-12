@@ -27,7 +27,6 @@ class Configuration implements ConfigurationInterface
                             ->scalarNode('bin')->defaultValue('php')->end()
                             ->scalarNode('script')->end()
                             ->scalarNode('command')->end()
-                            ->scalarNode('arguments')->end()
                             ->scalarNode('expression')->isRequired()->end()
                         ->end()
                     ->end()
