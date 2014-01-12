@@ -100,7 +100,10 @@ class Manager
         $cronExpression = $task->getCronExpression();
         if (true === $cronExpression->isDue()) {
             $this->getLogger()->info(
-                sprintf('Starting cron task "%s"', $task->getName())
+                sprintf('Starting cron task "%s"', $task->getName()),
+                array(
+                    'command' => $task->getCommandToExecute()
+                )
             );
             $taskProcess = new Process($task->getCommandToExecute());
             $taskProcess->start();

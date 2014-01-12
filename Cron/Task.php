@@ -17,7 +17,6 @@ class Task
     protected $bin;
     protected $script;
     protected $command;
-    protected $arguments;
     protected $cronExpression;
 
     /**
@@ -50,22 +49,6 @@ class Task
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * @param mixed $arguments
-     */
-    public function setArguments($arguments)
-    {
-        $this->arguments = $arguments;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getArguments()
-    {
-        return $this->arguments;
     }
 
     /**
@@ -138,7 +121,6 @@ class Task
 
         $this->bin = $options['bin'];
         $this->script = $options['script'];
-        $this->arguments = $options['arguments'];
         $this->command = $options['command'];
 
         $cronExpression = CronExpression::factory($options['expression']);
@@ -154,7 +136,6 @@ class Task
             array(
                 'bin' => 'php',
                 'script' => null,
-                'arguments' => array(),
                 'command' => null,
                 'expression' => '',
             )
@@ -174,10 +155,6 @@ class Task
                 $this->bin,
                 $this->script,
                 $this->command,
-                implode(
-                    " ",
-                    $this->arguments
-                )
             )
         );
         return trim(preg_replace('/\s+/', ' ', $command));
