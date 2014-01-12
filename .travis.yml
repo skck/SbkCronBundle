@@ -12,10 +12,15 @@ env:
   - SYMFONY_VERSION=dev-master
 
 before_script:
-  - composer require symfony/framework-bundle:${SYMFONY_VERSION}
+  - composer require symfony/framework-bundle:${SYMFONY_VERSION} --no-update
+  - composer update --dev
 
 script: phpunit --coverage-text
 
 notifications:
   email:
     - seb.kueck@gmail.com
+
+matrix:
+  allow_failures:
+    - env: SYMFONY_VERSION=dev-master
