@@ -1,0 +1,9 @@
+parameters:
+    sbk_cron.manager.class: Sbk\Bundle\CronBundle\Cron\Manager
+
+services:
+    sbk_cron.manager:
+        class: %sbk_cron.manager.class%
+        arguments: [@logger, "%kernel.root_dir%/console", %sbk_cron.tasks%]
+        tags:
+          - { name: monolog.logger, channel: sbk_cron }
