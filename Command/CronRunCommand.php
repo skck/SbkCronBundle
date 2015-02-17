@@ -7,11 +7,9 @@
  */
 namespace Sbk\Bundle\CronBundle\Command;
 
-use Sbk\Bundle\CronBundle\Cron\Manager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Process\Process;
 
 /**
  * Class CronRunCommand
@@ -38,7 +36,6 @@ class CronRunCommand extends ContainerAwareCommand
     {
         $cronManager = $this->getContainer()->get('sbk_cron.manager');
         $cronManager->forkTasks();
-
     }
 
 }
