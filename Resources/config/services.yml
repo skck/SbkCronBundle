@@ -3,7 +3,7 @@ parameters:
 
 services:
     sbk_cron.manager:
-        class: %sbk_cron.manager.class%
-        arguments: [@logger, "%kernel.root_dir%/console", %sbk_cron.tasks%]
+        class: "%sbk_cron.manager.class%"
+        arguments: ["@logger", "%kernel.root_dir%/console", "%sbk_cron.tasks%"]
         tags:
           - { name: monolog.logger, channel: sbk_cron }
