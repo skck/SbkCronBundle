@@ -107,6 +107,16 @@ class Manager
             );
             $taskProcess = new Process($task->getCommandToExecute());
             $taskProcess->start();
+
+            // Give a little time to fork process
+            usleep(5000);
+
+            $this->getLogger()->info(
+                sprintf('Cron task "%s" started with pid %s', $task->getName(), $taskProcess->getPid()),
+                array(
+                    'command' => $task->getCommandToExecute()
+                )
+            );
         }
     }
 
