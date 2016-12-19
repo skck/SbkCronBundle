@@ -17,6 +17,7 @@ use Symfony\Component\Process\Process;
 class Manager
 {
     protected $tasks = array();
+    protected $tasksProcess = array();
     protected $logger;
 
     protected $defaultScript;
@@ -88,6 +89,22 @@ class Manager
         foreach ($this->getTasks() as $task) {
             $this->forkTask($task);
         }
+        
+        $this->checkIfIsFinished();
+    }
+
+    /**
+     * Check if all process is finished
+     */
+    protected function checkIfIsFinished()
+    {    
+        while (count($this->tasksProcess) != 0) {
+            foreach ($this->tasksProcess as $key => $running) {
+                if (!$running->isRunning()) {
+                    unset($this->tasksProcess[$key]);
+                }
+            }
+        }
     }
 
     /**
@@ -107,6 +124,7 @@ class Manager
             );
             $taskProcess = new Process($task->getCommandToExecute());
             $taskProcess->start();
+            $this->tasksProcess[] = $taskProcess;
         }
     }
 
